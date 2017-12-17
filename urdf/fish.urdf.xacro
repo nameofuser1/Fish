@@ -3,11 +3,11 @@
 <robot name="fish" xmlns:xacro="http://www.ros.org/wiki/xacro">
   <xacro:property name="mesh_scale" value="0.001 0.001 0.001" />
   
-  <xacro:property name="body_center_gravity" value="0.31665 0.10664 0.06385"/>
-  <xacro:property name="body_mass" value="54.54" />
-  <xacro:property name="volume" value="0.05295219" />
+  <xacro:property name="body_center_gravity" value="0.3447 0.10736 0.063"/>
+  <xacro:property name="body_mass" value="6.5" />
+  <xacro:property name="volume" value="0.005295219" />
 
-  <xacro:property name="model_name" value="Torpeda.STL" />
+  <xacro:property name="model_name" value="Tail_zapolnennie.STL" />
 
 <!-- Creating reference frame  -->
   <link name="world" />
@@ -36,12 +36,12 @@
     <inertial>
       <origin rpy="0.0 0.0 0.0" xyz="${body_center_gravity}"/>
       <mass value="${body_mass}"/>
-      <inertia ixx="0.20628980082" ixy="0.0" ixz="0.0"
-        iyy="0.94202350902" iyz="0.0"  izz="1.05359207913"/>
+      <inertia ixx="0.022636377" ixy="0.001191355" ixz="0.0"
+        iyy="0.142422100" iyz="0.0"  izz="0.15464559"/>
     </inertial>
   </link>
 
-  <!--
+  <!-- TAIL -->
   <link name="tail_link">
     <visual>
       <geometry>
@@ -50,24 +50,31 @@
       <material name="Green">
         <color rgba="0.2 1.0 0.2 1.0"/>
       </material>
-
-      <origin rpy="0.715 0.0 0.0" xyz="0.0 0.0 0.0" />
+    <!--xyz="0.70705 -0.01004 0.04165"-->
+      <origin rpy="0.0 0.0 0.0" xyz="-0.0101009 -0.1244513 -0.02143235"/>
     </visual>
 
     <collision>
       <geometry>
-        <mesh filename="file://$(find fish)/meshes/Tail.stl" scale="${mesh_scale}" />
+        <mesh filename="file://$(find fish)/meshes/Tail.STL" scale="${mesh_scale}" />
       </geometry>
     </collision>
 
     <inertial>
-      <origin rpy="0.0 0.0 0.0" xyz="${body_center_gravity}"/>
-      <mass value="${body_mass}"/>
-      <inertia ixx="0.0198179" ixy="0.0" ixz="0.0"
-        iyy="0.129511" iyz="0.0"  izz="0.14009"/>
+      <origin rpy="0.0 0.0 0.0" xyz="0.14137 0.0 0.0"/>
+      <mass value="0.625"/>
+      <inertia ixx="0.000273771" ixy="0.0" ixz="0.0"
+        iyy="0.00075492555" iyz="0.0"  izz="0.00102785965"/>
     </inertial>
   </link>
-    -->
+
+  <joint name="tail_joint" type="revolute">
+    <parent link="body_link"/>
+    <child link="tail_link"/>
+    <origin rpy="0.0 0.0 0.0" xyz="0.71715009 0.1144113 0.06308235"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="${-pi/6}" upper="${pi/6}" velocity="${pi/2}" effort="30" />
+  </joint>
 
 
   <!-- CONTROL PLUGIN -->
@@ -76,6 +83,7 @@
 		<child link="body_link"/>
     <origin rpy="${pi/2} 0.0 0.0" xyz="0.0 0.0 0.0" />
   </joint>
+
   
   <gazebo reference="body_link">
     <material>Gazebo/Green</material>
@@ -87,19 +95,34 @@
   
   <gazebo>
     <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-      <robotNamespace>/</robotNamespace>
+      <robotNamespace>/fish</robotNamespace>
     </plugin>
   
     <plugin name="buoyancy" filename="libBuoyancyPlugin.so">
       <link name="body_link">
-        <center_of_volume>0.31665 0.10664 0.06385</center_of_volume>
-        <volume>0.05295219</volume>
+        <center_of_volume>0.3447 0.10736 0.0630</center_of_volume>
+        <volume>0.005830207</volume>
+      </link>
+
+      <link name="tail_link">
+        <center_of_volume>0.14137 0.12445 0.02142</center_of_volume>
+        <volume>0.000122907</volume>
       </link>
 
       <fluid_density>1030</fluid_density>
     </plugin>
   </gazebo>
-
+  
+  <transmission name="tran1">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="tail_joint">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor1">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
 
 </robot>
 

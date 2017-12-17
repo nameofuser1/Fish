@@ -1,6 +1,18 @@
 <xml version="1.0">	
   <launch>    
+    <!-- Load joint controller configurations from YAML file to parameter server -->
+    <rosparam file="$(find fish)/config/control.yaml" command="load"/>
 
+    <!-- load the controllers -->
+    <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+      output="screen" ns="/fish" args="joint1_position_controller"/>
+
+    <!-- convert joint states to TF transforms for rviz, etc -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
+      respawn="false" output="screen">
+      <remap from="/joint_states" to="/fish/joint_states" />
+    </node>
+    
     <param name="robot_description" textfile="$(find fish)/urdf/fish.urdf" />
 
     <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
