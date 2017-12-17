@@ -62,7 +62,7 @@
 
     <inertial>
       <origin rpy="0.0 0.0 0.0" xyz="0.14137 0.0 0.0"/>
-      <mass value="0.625"/>
+      <mass value="0.687"/>
       <inertia ixx="0.000273771" ixy="0.0" ixz="0.0"
         iyy="0.00075492555" iyz="0.0"  izz="0.00102785965"/>
     </inertial>
@@ -90,7 +90,15 @@
     <kp>100000.0</kp>
     <kd>100000.0</kd>
     <mu1>10.0</mu1>
-    <mu2>10.0</mu2>>
+    <mu2>10.0</mu2>
+  </gazebo> 
+  
+  <gazebo reference="tail_link">
+    <material>Gazebo/Green</material>
+    <kp>100000.0</kp>
+    <kd>100000.0</kd>
+    <mu1>10.0</mu1>
+    <mu2>10.0</mu2>
   </gazebo> 
   
   <gazebo>
@@ -111,8 +119,25 @@
 
       <fluid_density>1030</fluid_density>
     </plugin>
+
+    <plugin name="fish_tail" filename="libLiftDragPlugin.so">
+      <link_name>tail_link</link_name>
+      <air_density>1000</air_density>
+      <cla>0.2969</cla>
+      <cla_stall>-0.1044</cla_stall>
+      <cda>0</cda>
+      <cda_stall>0.1044</cda_stall>
+      <alpha_stall>0.3368</alpha_stall>
+      <a0>0</a0>
+      <area>0.041820095</area>
+      <upward>-0.330514 0.943801 0</upward>
+      <forward>0.943801  0.330514 0</forward>
+      <cp>0.14137 0.12445 0.02142</cp>
+    </plugin>
+
   </gazebo>
-  
+
+  <!-- FOR ROS CONTROL -->
   <transmission name="tran1">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="tail_joint">
