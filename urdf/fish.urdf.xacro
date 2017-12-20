@@ -29,14 +29,14 @@
 
     <collision>
       <geometry>
-        <box size="0.726 0.206 0.106"/>
+        <box size="${0.726 - 0.016} 0.206 0.106"/>
         <!--<mesh filename="file://$(find fish)/meshes/${model_name}" scale="${mesh_scale}" />-->
       </geometry>
-      <origin rpy="0.0 0.0 0.0" xyz="0.363 0.103 0.053" />
+      <origin rpy="0.0 0.0 0.0" xyz="0.363 ${0.103 + 0.010} ${0.053 + 0.011}" />
     </collision>
 
     <inertial>
-      <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+      <origin rpy="0.0 0.0 0.0" xyz="0.363 ${0.103 + 0.010} ${0.053 + 0.011}" />
       <mass value="${body_mass}"/>
       <inertia ixx="0.77494088896" ixy="0.0" ixz="0.0"
         iyy="0.07303204514" iyz="0.0"  izz="0.142422100"/>
@@ -58,7 +58,7 @@
 
     <collision>
       <geometry>
-        <box size="0.272 0.210 0.0101"/>
+        <box size="${0.272 - 0.022} 0.210 0.0101"/>
         <!--<mesh filename="file://$(find fish)/meshes/Tail.STL" scale="${mesh_scale}" />-->
       </geometry>
       <origin rpy="0.0 0.0 0.0" xyz="0.14147 0.0 0.0"/>

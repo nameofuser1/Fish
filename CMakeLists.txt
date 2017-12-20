@@ -20,7 +20,6 @@ find_package(catkin REQUIRED
   COMPONENTS
     pluginlib
     geometric_shapes
-    moveit_visual_tools
     xacro
 )
 
