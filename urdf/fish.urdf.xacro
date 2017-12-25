@@ -127,7 +127,7 @@
 
     <plugin name="fish_tail" filename="libLiftDragPlugin.so">
       <link_name>tail_link</link_name>
-      <air_density>1000</air_density>
+      <air_density>1030</air_density>
       <cla>0.2969</cla>
       <cla_stall>-0.1044</cla_stall>
       <cda>0</cda>
