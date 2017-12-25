@@ -3,8 +3,8 @@
 <robot name="fish" xmlns:xacro="http://www.ros.org/wiki/xacro">
   <xacro:property name="mesh_scale" value="0.001 0.001 0.001" />
   
-  <xacro:property name="body_mass" value="${16.32852408}" />
-  <xacro:property name="tail_mass" value="0.59421936" />
+  <xacro:property name="body_mass" value="${23.343741186}" />
+  <xacro:property name="tail_mass" value="${0.6044864}" />
 
   <xacro:property name="model_name" value="Tail_zapolnennie.STL" />
 
@@ -28,17 +28,18 @@
 
     <collision>
       <geometry>
-        <box size="${0.726 - 0.016} 0.206 0.106"/>
+        <cylinder radius="${0.206 / 2}" length="${0.726 - 0.046}" />
+        <!--<box size="${0.726 - 0.016} 0.206 0.106"/> -->
         <!--<mesh filename="file://$(find fish)/meshes/${model_name}" scale="${mesh_scale}" />-->
       </geometry>
-      <origin rpy="0.0 0.0 0.0" xyz="0.363 ${0.103 + 0.010} ${0.053 + 0.011}" />
+      <origin rpy="0.0 ${pi/2} 0.0" xyz="0.363 ${0.103 + 0.010} ${0.053 + 0.011}" />
     </collision>
 
     <inertial>
       <origin rpy="0.0 0.0 0.0" xyz="0.363 ${0.103 + 0.010} ${0.053 + 0.011}" />
       <mass value="${body_mass}"/>
-      <inertia ixx="0.07303204514" ixy="0.0" ixz="0.0"
-        iyy="0.7348682585" iyz="0.0"  izz="0.77494088896"/>
+      <inertia ixx="0.123826875" ixy="0.0" ixz="0.0"
+        iyy="0.961425598" iyz="0.0"  izz="0.961425598"/>
     </inertial>
   </link>
 
@@ -57,7 +58,8 @@
 
     <collision>
       <geometry>
-        <box size="${0.272 - 0.022} 0.210 0.0101"/>
+        <cylinder radius="${0.272 / 2.0}" length="${0.0101}" />
+        <!--<box size="${0.272 - 0.022} 0.210 0.0101"/> -->
         <!--<mesh filename="file://$(find fish)/meshes/Tail.STL" scale="${mesh_scale}" />-->
       </geometry>
       <origin rpy="0.0 0.0 0.0" xyz="0.14147 0.0 0.0"/>
@@ -66,8 +68,8 @@
     <inertial>
       <origin rpy="0.0 0.0 0.0" xyz="0.14147 0.0 0.0"/>
       <mass value="${tail_mass}"/>
-      <inertia ixx="0.00218880737" ixy="0.0" ixz="0.0"
-        iyy="0.00366861219" iyz="0.0"  izz="0.00584731684"/>
+      <inertia ixx="0.002800282" ixy="0.0" ixz="0.0"
+        iyy="0.005590287" iyz="0.0"  izz="0.005590287"/>
     </inertial>
   </link>
 
@@ -112,12 +114,12 @@
     <plugin name="buoyancy" filename="libBuoyancyPlugin.so">
       <link name="body_link">
         <!--<center_of_volume></center_of_volume>-->
-        <volume>0.015852936</volume>
+        <volume>0.022663826</volume>
       </link>
 
       <link name="tail_link">
         <!--<center_of_volume>0.14137 0.12445 0.02142</center_of_volume>-->
-        <volume>0.000576912</volume>
+        <volume>0.00058688</volume>
       </link>
 
       <fluid_density>1030</fluid_density>
