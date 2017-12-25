@@ -63,7 +63,7 @@
     </collision>
 
     <inertial>
-      <origin rpy="0.0 0.0 0.0" xyz="0.14147 0.0 0.0"/>
+      <origin rpy="0.0 0.0 0.0" xyz="0.14147 -0.0005 0.0"/>
       <mass value="${tail_mass}"/>
       <inertia ixx="0.002800282" ixy="0.0" ixz="0.0"
         iyy="0.002800282" iyz="0.0"  izz="0.005590287"/>
@@ -75,8 +75,8 @@
     <child link="tail_link"/>
     <origin rpy="0.0 0.0 0.0" xyz="0.71715009 0.1144113 0.06308235"/>
     <axis xyz="0 1 0"/>
-    <limit lower="${-pi/6}" upper="${pi/6}" velocity="${pi/2}" effort="100" />
-  </joint>-->
+    <limit lower="${-pi/2}" upper="${pi/2}" velocity="${pi}" effort="10000" />
+  </joint>
 
 
   <!-- CONTROL PLUGIN -->
@@ -128,16 +128,23 @@
     <plugin name="fish_tail" filename="libLiftDragPlugin.so">
       <link_name>tail_link</link_name>
       <air_density>1030</air_density>
-      <cla>0.2969</cla>
-      <cla_stall>-0.1044</cla_stall>
-      <cda>0</cda>
-      <cda_stall>0.1044</cda_stall>
-      <alpha_stall>0.3368</alpha_stall>
-      <a0>0</a0>
-      <area>0.041820095</area>
-      <upward>-0.330514 0.943801 0</upward>
-      <forward>0.943801  0.330514 0</forward>
-      <cp>0.14137 0.12445 0.02142</cp>
+      
+      <a0>0.08727</a0>
+      <alpha_stall>${pi/6}</alpha_stall>
+      
+      <cla>0.08727</cla>
+      <cla_stall>${pi/6}</cla_stall>
+      
+      <cda>0.0</cda>
+      <cda_stall>0.0</cda_stall>
+
+      <area>0.1248444</area>
+      <!--<area>0.058106898</area>-->
+      
+      <upward>0.0 0.0 1.0</upward>
+      <forward>-1.0 0.0 0.0</forward>
+
+      <cp>0.14147 -0.0007 0.0</cp>
     </plugin>
   </gazebo>
 
