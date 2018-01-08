@@ -66,22 +66,6 @@
       </link>
     </model>
 
-
-    <include>
-      <uri>model://submarine_sinking</uri>
-      <pose>5 0 10 1.57 0 0</pose>
-    </include>
-
-    <include>
-      <uri>model://submarine</uri>
-      <pose>0 0 10 1.57 0 0</pose>
-    </include>
-
-    <include>
-      <uri>model://submarine_buoyant</uri>
-      <pose>-5 0 10 1.57 0 0</pose>
-    </include>
-
     <model name="ceiling_plane">
       <static>true</static>
       <pose>0 0 40 0 0 0</pose>

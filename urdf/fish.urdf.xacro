@@ -6,7 +6,8 @@
   <xacro:property name="body_mass" value="${23.343741186}" />
   <xacro:property name="tail_mass" value="${0.6044864}" />
 
-  <xacro:property name="model_name" value="Tail_zapolnennie.STL" />
+  <xacro:property name="model_name" value="Rework/Body_only.STL" />
+  <xacro:property name="tail_name" value="Rework/hvost.STL" />
 
 <!-- Creating reference frame  -->
   <link name="world" />
@@ -23,7 +24,7 @@
         <color rgba="0.2 1.0 0.2 1.0"/>
       </material>
 
-      <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0" />
+      <origin rpy="0.0 ${-pi/2} 0.0" xyz="0.740 -0.025 -0.07" />
     </visual>
 
     <collision>
@@ -47,7 +48,7 @@
   <link name="tail_link">
     <visual>
       <geometry>
-        <mesh filename="file://$(find fish)/meshes/Tail.STL" scale="${mesh_scale}"/>
+        <mesh filename="file://$(find fish)/meshes/${tail_name}" scale="${mesh_scale}"/>
       </geometry>
       <material name="Green">
         <color rgba="0.2 1.0 0.2 1.0"/>
